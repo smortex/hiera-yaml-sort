@@ -1,0 +1,9 @@
+Layout/LineLength:
+  Description: People have wide screens, use them.
+  Max: 200
+
+Metrics/BlockLength:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false

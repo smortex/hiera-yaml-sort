@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'hiera_yaml_sort'
+
+ARGV.each do |filename|
+  file = HieraYamlSort::HieraYamlFile.new(filename)
+  file.write
+end
