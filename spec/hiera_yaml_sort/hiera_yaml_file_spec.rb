@@ -31,4 +31,26 @@ RSpec.describe HieraYamlSort::HieraYamlFile do
       YAML
     end
   end
+
+  context 'with a yaml file with multiline values' do
+    let(:filename) { 'spec/fixtures/multiline.yaml' }
+
+    it 'should sort entries' do
+      expect(subject.to_s).to eq <<~YAML
+        ---
+        one: |
+          aaa
+          zzz
+          eee
+        three: |
+          qqq
+          www
+          eee
+        two: |
+          aaa
+          ccc
+          bbb
+      YAML
+    end
+  end
 end

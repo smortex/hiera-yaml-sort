@@ -13,11 +13,19 @@ module HieraYamlSort
       @children.push(item)
     end
 
-    def to_s(root = true)
+    def to_s(root = true, sort = true)
       if root
         children.sort.map { |c| c.to_s(false) }.join
       else
-        content + children.sort.map { |c| c.to_s(false) }.join
+        res = content
+
+        if children.any?
+          sort &= !scalar_block?
+
+          res += children_content(sort)
+        end
+
+        res
       end
     end
 
@@ -29,6 +37,20 @@ module HieraYamlSort
       return 1 if other.content == "lookup_options:\n"
 
       content <=> other.content
+    end
+
+    private
+
+    def scalar_block?
+      content.match?(/(\||>)-?\n\z/)
+    end
+
+    def children_content(sort)
+      if sort
+        children.sort.map { |c| c.to_s(false, sort) }.join
+      else
+        children.map { |c| c.to_s(false, sort) }.join
+      end
     end
   end
 end
